@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of J&S Computer Training Center - Exam</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --light-gold: #FFF8E7;
+            --dark-gold: #B8860B;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-color: #FDFBF7;
+            --success: #27ae60;
+            --error: #e74c3c;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFDF00 100%);
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 15px;
+            color: #FFF8E7;
+            font-weight: 300;
+        }
+
+        .student-name-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .student-name-container input {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            width: 250px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            outline: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Card Styling */
+        .exam-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.08);
+            border: 1px solid #F0E6D2;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .exam-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .exam-card h3 {
+            margin-top: 0;
+            color: var(--dark-gold);
+            font-size: 18px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--light-gold);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .exam-card h3::before {
+            content: '★';
+            color: var(--primary-gold);
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Image Styling */
+        .image-wrapper {
+            text-align: center;
+            margin-bottom: 20px;
+            background: var(--light-gold);
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px dashed var(--primary-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Input Styling */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .input-group input[type="text"], 
+        .input-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background-color: #FAFAFA;
+        }
+
+        .input-group input[type="text"]:focus, 
+        .input-group textarea:focus {
+            border-color: var(--primary-gold);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+            outline: none;
+        }
+
+        .input-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        /* Feedback Styling */
+        .feedback {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .feedback.correct {
+            color: var(--success);
+            background-color: #E8F8F5;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            color: var(--error);
+            background-color: #FDEDEC;
+            display: block;
+        }
+
+        /* Submit Button */
+        .submit-section {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #E6C200 0%, #D4AF37 100%);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Score Board */
+        .score-board {
+            display: none;
+            background: linear-gradient(135deg, #FFF8E7 0%, #FFFFFF 100%);
+            border: 2px solid var(--primary-gold);
+            color: var(--dark-gold);
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .score-board span {
+            color: var(--success);
+            font-size: 28px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 { font-size: 22px; }
+            .exam-card { padding: 15px; }
+            .submit-btn { width: 100%; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>House of J&S Computer Training Center</h1>
+        <p>Term Exam - Auto Check System</p>
+        <div class="student-name-container">
+            <input type="text" id="studentName" placeholder="Enter Student Name">
+        </div>
+    </header>
+
+    <div class="container" id="exam-container">
+        <!-- Questions will be generated here by JavaScript -->
+    </div>
+
+    <div class="submit-section">
+        <button class="submit-btn" onclick="submitExam()">Submit Exam</button>
+    </div>
+
+    <div class="container">
+        <div class="score-board" id="score-board">
+            Your Score: <span id="score">0</span> / <span id="total">0</span>
+        </div>
+    </div>
+
+    <script>
+        // =====================================================================
+        // ဒီနေရာမှာ မေးခွန်းတွေနဲ့ အဖြေတွေကို ထည့်ပေးထားပါတယ်။
+        // ပုံတွေအတွက်ကတော့ သက်ဆိုင်ရာ ခေါင်းစဉ်တွေနဲ့ Placeholder ပုံတွေ ထည့်ပေးထားပါတယ်။
+        // =====================================================================
+        
+        const examData = [
+            {
+                id: 1,
+                title: "Goldilocks and the Big Mess - Ordering Story",
+                questions: [
+                    { label: "First ...", answer: "Goldilocks ate some porridge" },
+                    { label: "Then ...", answer: "Goldilocks sat on a chair" },
+                    { label: "Next ...", answer: "Goldilocks went to sleep" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Adjectives - Describing a Bear",
+                questions: [
+                    { label: "Adjective 1:", answer: "brown" },
+                    { label: "Adjective 2:", answer: "kind" },
+                    { label: "Adjective 3:", answer: "slow" },
+                    { label: "Adjective 4:", answer: "fat" },
+                    { label: "Sentence 1:", answer: "My friend is so fat" },
+                    { label: "Sentence 2:", answer: "My mom has brown skin" }
+                ]
+            },
+            {
+                id: 3,
+                title: "Goldilocks Homework - Story Sequence",
+                questions: [
+                    { label: "Then ...", answer: "She saw 3 bowls of porridge and gobbled them up" },
+                    { label: "Next ...", answer: "She fell over the cushion and went upstairs. She laid on the bed and fell asleep." },
+                    { label: "At the end ...", answer: "the three bears came and checked who is in their house" }
+                ]
+            },
+            {
+                id: 5,
+                title: "Goldilocks - Character Traits (Hungry & Unhelpful)",
+                questions: [
+                    { label: "I think Goldilocks is (hungry):", answer: "hungry" },
+                    { label: "I think this because (ate):", answer: "She ate three bowls of porridge" },
+                    { label: "I think Goldilocks is (2):", answer: "unhelpful" },
+                    { label: "I think this because (broke):", answer: "She made the things break down" }
+                ]
+            },
+            {
+                id: 6,
+                title: "Conjunctions - and / but",
+                questions: [
+                    { label: "Sentence 1:", answer: "but" },
+                    { label: "Sentence 2:", answer: "and" },
+                    { label: "Sentence 3:", answer: "and" },
+                    { label: "Sentence 4:", answer: "but" },
+                    { label: "Sentence 5:", answer: "and" },
+                    { label: "Sentence 6:", answer: "but" }
+                ]
+            },
+            {
+                id: 7,
+                title: "Pronouns - Rewriting Sentences",
+                questions: [
+                    { label: "Sentence 1:", answer: "The dog was barking. It was loud" },
+                    { label: "Sentence 2:", answer: "My sister loves tennis. It's her favourite sport" },
+                    { label: "Sentence 3:", answer: "The park was full of people. They were having fun" }
+                ]
+            },
+            {
+                id: 8,
+                title: "Senses - Goldilocks' House",
+                questions: [
+                    { label: "I can see ...", answer: "three chairs and cushion" },
+                    { label: "I can smell ...", answer: "three bowls of porridge" },
+                    { label: "I can touch ...", answer: "the hard and soft beds" }
+                ]
+            },
+            {
+                id: 9,
+                title: "Prediction - Goldilocks and the Tea Pot",
+                questions: [
+                    { label: "I predict ...", answer: "she will make a big mess on the table" },
+                    { label: "Bear's reply:", answer: "The three bears will say It is okay let me help you" }
+                ]
+            },
+            {
+                id: 11,
+                title: "Tricking Our Eyes - Non-Fiction Features",
+                questions: [
+                    { label: "contents", answer: "list of what is in a book" },
+                    { label: "heading", answer: "title at the start of a page or section in a non-fiction book" },
+                    { label: "caption", answer: "text to describe a photo or illustration" },
+                    { label: "glossary", answer: "list of words and their meanings" },
+                    { label: "Diagram meaning:", answer: "diagram is a simple drawing using lines to explain where something is and how something works" }
+                ]
+            },
+            {
+                id: 12,
+                title: "Word Family - Play",
+                questions: [
+                    { label: "Sentence 1:", answer: "play" },
+                    { label: "Sentence 2:", answer: "played" },
+                    { label: "Sentence 3:", answer: "playing" },
+                    { label: "Sentence 4:", answer: "player" },
+                    { label: "Sentence 5:", answer: "play" },
+                    { label: "Sentence 6:", answer: "playing" }
+                ]
+            },
+            {
+                id: 13,
+                title: "Verbs - Present and Past Tense",
+                questions: [
+                    { label: "Present (Run):", answer: "run" },
+                    { label: "Present (Sleep):", answer: "sleep" },
+                    { label: "Present (Climb):", answer: "climb" },
+                    { label: "Present (Walk):", answer: "walk" },
+                    { label: "Present (Go):", answer: "go" },
+                    { label: "Present (Live):", answer: "live" },
+                    { label: "Past (Go):", answer: "went" },
+                    { label: "Past (Walk):", answer: "walked" },
+                    { label: "Past (Sleep):", answer: "slept" },
+                    { label: "Past (Climb):", answer: "climbed" },
+                    { label: "Past (Run):", answer: "ran" },
+                    { label: "Past (Live):", answer: "lived" }
+                ]
+            },
+            {
+                id: 14,
+                title: "Tricking Our Eyes - Comprehension Questions",
+                questions: [
+                    { label: "Why do rows look bent?", answer: "The rows look bent because of the way the rectangles are placed" },
+                    { label: "What happens on page 8?", answer: "When I follow the instructions the circle is moving and I feel dizzy" },
+                    { label: "When was illusion drawn?", answer: "It was drawn in 1888" }
+                ]
+            },
+            {
+                id: 15,
+                title: "Optical Illusion - My Favourite",
+                questions: [
+                    { label: "My favourite optical illusion is ...", answer: "It's famous illusion building" },
+                    { label: "I think this because ...", answer: "I think the building is moving. I feel dizzy and scared" }
+                ]
+            },
+            {
+                id: 17,
+                title: "Tricking Our Eyes - Features Hunt",
+                questions: [
+                    { label: "Page 18: heading", answer: "Where is it?" },
+                    { label: "Page 2: opening sentence", answer: "sometimes we see things that are not there" },
+                    { label: "Page 7: caption", answer: "This optical illusion is on the floor of a shopping center" },
+                    { label: "Page 19: label", answer: "Here is a moth" }
+                ]
+            },
+            {
+                id: 18,
+                title: "Tricking Our Eyes - Contents Page",
+                questions: [
+                    { label: "Tricky words page:", answer: "Page 24 - Glossary" },
+                    { label: "Optical illusions using words page:", answer: "Page 13" },
+                    { label: "Optical illusions on page 8:", answer: "The moving circle" }
+                ]
+            },
+            {
+                id: 19,
+                title: "Adjectives - Improving Sentences",
+                questions: [
+                    { label: "Sentence 1:", answer: "The hairy dog ran away" },
+                    { label: "Sentence 2:", answer: "I put the smelly rubbish in the bin" },
+                    { label: "Sentence 3:", answer: "Pretty mom love her pink flowers" },
+                    { label: "Sentence 4:", answer: "The bright sun was in our big eyes" },
+                    { label: "Sentence 5:", answer: "I want a piece of brown cake" }
+                ]
+            },
+            {
+                id: 20,
+                title: "Instructions - Optical Illusion Sequence",
+                questions: [
+                    { label: "1. First ...", answer: "Put the book flat on the floor" },
+                    { label: "2. Then ...", answer: "look at the black dot in the middle" },
+                    { label: "3. Then ...", answer: "Move your face closer to the book" },
+                    { label: "4. Finally ...", answer: "Move your face away from the book" }
+                ]
+            },
+            {
+                id: 21,
+                title: "Book Review - Tricking Our Eyes",
+                questions: [
+                    { label: "I liked ...", answer: "the famous building" },
+                    { label: "I would change ...", answer: "\"Magic\" because it is just a picture" }
+                ]
+            },
+            {
+                id: 23,
+                title: "Pete's Pet Shop - Story Order",
+                questions: [
+                    { label: "This happened next (Gardener):", answer: "He lost his job" },
+                    { label: "This happened next (Bus Driver):", answer: "Pete lost his job too" }
+                ]
+            },
+            {
+                id: 24,
+                title: "Peculiar - Synonyms and Sentences",
+                questions: [
+                    { label: "Similar meaning to peculiar (1):", answer: "odd" },
+                    { label: "Similar meaning to peculiar (2):", answer: "unusual" },
+                    { label: "Sentence 1:", answer: "The pterodactyl and the griffin are peculiar animals" },
+                    { label: "Sentence 2:", answer: "Dinosaur and griffin are peculiar animals" }
+                ]
+            },
+            {
+                id: 25,
+                title: "Pete's Pet Shop - Animal Matching",
+                questions: [
+                    { label: "Match: slugs", answer: "picture 3" },
+                    { label: "Match: monkeys", answer: "picture 4" },
+                    { label: "Match: pterodactyl", answer: "picture 1" },
+                    { label: "Match: octopus", answer: "picture 2" }
+                ]
+            },
+            {
+                id: 26,
+                title: "Pronouns - Pete's Pet Shop",
+                questions: [
+                    { label: "Pete found a job as a gardener. ->", answer: "he" },
+                    { label: "The slugs liked Pete. ->", answer: "they" },
+                    { label: "Pete was kind to the animals. ->", answer: "him" },
+                    { label: "Mopsy was carrying a Griffin. ->", answer: "she" },
+                    { label: "\"Could you look after the Griffin, please?\" ->", answer: "them" }
+                ]
+            },
+            {
+                id: 27,
+                title: "Pete's Pet Shop - Pages 14 to 17",
+                questions: [
+                    { label: "First ...", answer: "One morning, Pete's friend Mopsy was coming an enormous Griffin when he opened the front door" },
+                    { label: "Then ...", answer: "\"Could you look after him please? I don't think he is very well,\" Mopsy said." },
+                    { label: "Finally ...", answer: "Mopsy came over after work and said, \"The Griffin seems to be feeling much better.\" The Griffin said, \"I like it here. This will be my new home.\"" }
+                ]
+            },
+            {
+                id: 28,
+                title: "Pete's Character - Old and Kind",
+                questions: [
+                    { label: "I think Pete is (old):", answer: "old" },
+                    { label: "I think this because (grandpa):", answer: "he looks like a grandpa" },
+                    { label: "I think Pete is (kind):", answer: "kind" },
+                    { label: "I think this because (animals):", answer: "he let the slug eat the cabbages and all the stray animals live in his home" }
+                ]
+            },
+            {
+                id: 29,
+                title: "Character Thoughts and Feelings",
+                questions: [
+                    { label: "Character 1 (Monkey) Thinking:", answer: "I think monkey is thinking how cool the bus is" },
+                    { label: "Character 1 Feeling:", answer: "It is feeling excited" },
+                    { label: "Character 2 (Giraffe) Thinking:", answer: "I think giraffe is thinking why it is raining" },
+                    { label: "Character 2 Feeling:", answer: "It is feeling surprised" }
+                ]
+            },
+            {
+                id: 30,
+                title: "Vocabulary Practice - Stray, Unusual, Wanted",
+                questions: [
+                    { label: "stray:", answer: "Stay dogs are poor" },
+                    { label: "unusual:", answer: "The Griffinn bill is an unusual animals" },
+                    { label: "wanted:", answer: "Pete wanted a job" }
+                ]
+            },
+            {
+                id: 31,
+                title: "Favourite Character - Dinosaurs",
+                questions: [
+                    { label: "My favourite character is ...", answer: "dinosaurs" },
+                    { label: "because ...", answer: "they are cute" }
+                ]
+            },
+            {
+                id: 33,
+                title: "Direct Speech - Punctuation",
+                questions: [
+                    { label: "Sentence 1:", answer: "\"I am very talented,\" said Griffin." },
+                    { label: "Sentence 2:", answer: "\"That's a great idea!\" Mopsy said." },
+                    { label: "Sentence 3:", answer: "\"I found this in my garden,\" Mopsy said. \"Could you look after him?\"" }
+                ]
+            },
+            {
+                id: 34,
+                title: "Punctuation Matching - ? . !",
+                questions: [
+                    { label: "How many animals have you got", answer: "?" },
+                    { label: "That is fantastic news", answer: "." },
+                    { label: "Pete was very kind to animals", answer: "." },
+                    { label: "What shall we call the pet shop", answer: "?" },
+                    { label: "Watch out", answer: "!" },
+                    { label: "Will you look after the Griffin", answer: "?" }
+                ]
+            },
+            {
+                id: 35,
+                title: "Book Review - Pete's Peculiar Pet Shop",
+                questions: [
+                    { label: "I liked ...", answer: "Pete bought a large shop. Mopsy and the Griffin helped him get it ready and he called it \"Pete Peculiar Pet Shop\"" },
+                    { label: "I would change ...", answer: "Pete lost his gardener job and driver because this makes me sad" }
+                ]
+            },
+            {
+                id: 36,
+                title: "Birds of Prey - Introduction",
+                questions: [
+                    { label: "Another name for birds of prey:", answer: "raptor" },
+                    { label: "How many species:", answer: "There are around 300 species of birds of prey" },
+                    { label: "What do they use feet for:", answer: "Birds of prey use their feet for catching prey" },
+                    { label: "Match 1 (Patch was...):", answer: "fact" },
+                    { label: "Match 2 (Cats have...):", answer: "fact" },
+                    { label: "Match 3 (I think Patch...):", answer: "opinion" },
+                    { label: "Match 4 (Some cats...):", answer: "fact" },
+                    { label: "Match 5 (My cat...):", answer: "opinion" }
+                ]
+            },
+            {
+                id: 37,
+                title: "Birds of Prey - Osprey Actions",
+                questions: [
+                    { label: "Heading:", answer: "High cliff" },
+                    { label: "Label 1:", answer: "wing" },
+                    { label: "Label 2:", answer: "beak" },
+                    { label: "Label 3:", answer: "talons" },
+                    { label: "Label 4:", answer: "tail" },
+                    { label: "Sequence 1:", answer: "It flies slowly over water" },
+                    { label: "Sequence 2:", answer: "It hovers" },
+                    { label: "Sequence 3:", answer: "It dives feet first" },
+                    { label: "Sequence 4:", answer: "It uses pads on its feet to grab the fish" }
+                ]
+            },
+            {
+                id: 38,
+                title: "Birds of Prey - Falcon and Word Family",
+                questions: [
+                    { label: "Interesting fact is ...", answer: "I like falcon because it is fast" },
+                    { label: "I think this because ...", answer: "I thought falcons are slow. But I find out falcons are fast" },
+                    { label: "Fill 1:", answer: "quick" },
+                    { label: "Fill 2:", answer: "quickest" },
+                    { label: "Fill 3:", answer: "quicker" },
+                    { label: "Fill 4:", answer: "quickest" },
+                    { label: "Fill 5:", answer: "quicker" },
+                    { label: "Fill 6:", answer: "quick" }
+                ]
+            },
+            {
+                id: 39,
+                title: "Birds of Prey - Using an Index",
+                questions: [
+                    { label: "Snowy Owl page:", answer: "Page 21" },
+                    { label: "Hawks pages:", answer: "Page 5, 12, 15" },
+                    { label: "Eagles fact:", answer: "Eagles build their nest in tall trees or on high cliffs" },
+                    { label: "Barn Owls fact:", answer: "Barn Owls can find their prey in the dark using their amazing sense of hearing" },
+                    { label: "habitat meaning:", answer: "The place animal and plant live" },
+                    { label: "prey meaning:", answer: "The animal that the predator eats" },
+                    { label: "species meaning:", answer: "many type of animal and plant" }
+                ]
+            },
+            {
+                id: 40,
+                title: "Birds of Prey - California Condors",
+                questions: [
+                    { label: "Sentence 1:", answer: "There are apples, oranges, and lemons in the bowl" },
+                    { label: "Sentence 2:", answer: "My favourite pets are cats, hamsters and rabbits" },
+                    { label: "Sentence 3:", answer: "Flour, sugar, butter, and eggs are used in this recipe" },
+                    { label: "Q1:", answer: "California Condors live in rocky scrubland, forests and savannas" },
+                    { label: "Q2:", answer: "The wing-span of a Calinian Condor is around 3 metres" },
+                    { label: "Q3:", answer: "There are around 300 Californian Condor left in the world" }
+                ]
+            },
+            {
+                id: 41,
+                title: "Birds of Prey - Alphabetical Order & Verbs",
+                questions: [
+                    { label: "My favourite bird of prey is ...", answer: "The californian condor" },
+                    { label: "I think this because ...", answer: "They are mini jet. They look like mini jet" },
+                    { label: "Order 1:", answer: "ants" },
+                    { label: "Order 2:", answer: "birds" },
+                    { label: "Order 3:", answer: "cats" },
+                    { label: "Order 4:", answer: "claws" },
+                    { label: "Order 5:", answer: "dogs" },
+                    { label: "Order 6:", answer: "ferrets" },
+                    { label: "Order 7:", answer: "foxes" },
+                    { label: "Order 8:", answer: "snakes" },
+                    { label: "Order 9:", answer: "tails" },
+                    { label: "Order 10:", answer: "zebras" },
+                    { label: "Verb 1:", answer: "smell" },
+                    { label: "Verb 2:", answer: "fly" },
+                    { label: "Verb 3:", answer: "hunt" },
+                    { label: "Verb 4:", answer: "kill" },
+                    { label: "Sentence 1:", answer: "The poachers hunt the animal to sell the body parts" },
+                    { label: "Sentence 2:", answer: "Turkey vulture can smell the food even while flying high in the air" }
+                ]
+            },
+            {
+                id: 42,
+                title: "Birds of Prey - Vocabulary & Labelling",
+                questions: [
+                    { label: "Match: senses", answer: "sight, hearing and smell" },
+                    { label: "Match: pollution", answer: "things that harm the environment" },
+                    { label: "Match: hover", answer: "float in the air" },
+                    { label: "Match: soar", answer: "fly high in the sky" },
+                    { label: "Talon meaning:", answer: "a sharp, hooked claw belonging to a bird of prey" },
+                    { label: "Label 1:", answer: "fur" },
+                    { label: "Label 2:", answer: "big ears" },
+                    { label: "Label 3:", answer: "little eyes" },
+                    { label: "Label 4:", answer: "whiskers" },
+                    { label: "Label 5:", answer: "long tail" },
+                    { label: "Label 6:", answer: "feet" }
+                ]
+            },
+            {
+                id: 43,
+                title: "Birds of Prey - Questions & Homework",
+                questions: [
+                    { label: "Question 1:", answer: "How can we save endangered species of bird?" },
+                    { label: "Question 2:", answer: "Where is the vulture restaurant?" },
+                    { label: "Homework - Yes/No:", answer: "Yes I would" },
+                    { label: "Homework - Because:", answer: "Because we should know how many kinds of bird of prey exist are getting endangered around the world" }
+                ]
+            },
+            {
+                id: 44,
+                title: "All About Mummies - Verb Tenses",
+                questions: [
+                    { label: "Sentence 1:", answer: "paint" },
+                    { label: "Sentence 2:", answer: "take" },
+                    { label: "Sentence 3:", answer: "fill" },
+                    { label: "Sentence 4:", answer: "painted" },
+                    { label: "Sentence 5:", answer: "wanted" },
+                    { label: "Sentence 6:", answer: "want" }
+                ]
+            },
+            {
+                id: 45,
+                title: "All About Mummies - Vocabulary Match",
+                questions: [
+                    { label: "Match 1 (Wooden tags...):", answer: "cover" },
+                    { label: "Match 2 (The last step...):", answer: "look after" },
+                    { label: "Match 3 (When the mummy...):", answer: "coffin" },
+                    { label: "Match 4 (Tutankhamun...):", answer: "king" },
+                    { label: "Match 5 (The ancient Egyptians...):", answer: "from a long time ago" },
+                    { label: "Sentence:", answer: "They wrapped the mummies with bandages" }
+                ]
+            },
+            {
+                id: 46,
+                title: "All About Mummies - Homework Review",
+                questions: [
+                    { label: "My least favourite part is ...", answer: "Home for the Mummies" },
+                    { label: "I think this because ...", answer: "Dead peoples are put in the coffin that is nasty" }
+                ]
+            },
+            {
+                id: 47,
+                title: "All About Mummies - Sequence & Facts",
+                questions: [
+                    { label: "Sequence - First:", answer: "wake up first" },
+                    { label: "Sequence - Then:", answer: "Eat breakfast" },
+                    { label: "Sequence - Next:", answer: "wear uniform and pack my bag" },
+                    { label: "Sequence - Finally:", answer: "Go to school and learn" },
+                    { label: "Mummy makers did:", answer: "wash the body" },
+                    { label: "Why coffins like homes:", answer: "to protect the body from evil sprit" },
+                    { label: "Fact about kings/queens:", answer: "Kings and queens were important for them" }
+                ]
+            },
+            {
+                id: 48,
+                title: "All About Mummies - Text Features & Verbs",
+                questions: [
+                    { label: "Match: opening sentence", answer: "text that tells us what a report w be about" },
+                    { label: "Match: subheading", answer: "heading for a section of a rep" },
+                    { label: "Match: definition", answer: "text that expl the meaning of a word" },
+                    { label: "Match: diagram", answer: "drawing that sh what something looks like or ho it works" },
+                    { label: "Verb 1:", answer: "run" },
+                    { label: "Verb 2:", answer: "walk" },
+                    { label: "Verb 3:", answer: "kick" },
+                    { label: "Verb 4:", answer: "throw" },
+                    { label: "Sentence 1:", answer: "I kick the football" },
+                    { label: "Sentence 2:", answer: "Someone throw the rock to me" },
+                    { label: "Label meaning:", answer: "Label means describing someone or something using a particular word or phrase" }
+                ]
+            }
+        ];
+
+        // စာမျက်နှာပေါ်မှာ မေးခွန်းတွေကို ဖန်တီးခြင်း
+        const container = document.getElementById('exam-container');
+        
+        examData.forEach((item) => {
+            const card = document.createElement('div');
+            card.className = 'exam-card';
+            
+            let html = `<h3>Question Set ${item.id}</h3>`;
+            
+            // ပုံအတွက် Placeholder ဖန်တီးခြင်း (ရွှေရောင်နှင့် အဖြူရောင်)
+            // user မှာ ပုံမရှိသေးတာကြောင့် ခေါင်းစဉ်နှင့် သက်ဆိုင်သော စာသားဖြင့် ပုံဖန်တီးပေးထားသည်
+            const placeholderText = encodeURIComponent(item.title);
+            const imgUrl = `https://placehold.co/600x350/FFF8E7/D4AF37?text=${placeholderText}&font=poppins`;
+            
+            html += `
+                <div class="image-wrapper">
+                    <img src="${imgUrl}" alt="${item.title}" class="exam-image">
+                </div>
+            `;
+            
+            item.questions.forEach((q) => {
+                html += `
+                    <div class="input-group">
+                        <label>${q.label}</label>
+                        <textarea class="student-answer" data-answer="${q.answer}" placeholder="Enter your answer here..."></textarea>
+                        <div class="feedback"></div>
+                    </div>
+                `;
+            });
+            
+            card.innerHTML = html;
+            container.appendChild(card);
+        });
+
+        // အဖြေစစ်ဆေးခြင်း (Auto Check Logic)
+        function submitExam() {
+            const studentName = document.getElementById('studentName').value.trim() || 'Student';
+            const answers = document.querySelectorAll('.student-answer');
+            let score = 0;
+            let total = answers.length;
+
+            answers.forEach(input => {
+                const studentAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.getAttribute('data-answer').trim().toLowerCase();
+                const feedbackDiv = input.nextElementSibling;
+
+                // အဖြေစစ်ခြင်း (အသေးစိတ်စာလုံးပေါင်းအတိုင်း စစ်သည်)
+                if (studentAnswer === correctAnswer) {
+                    score++;
+                    input.style.borderColor = 'var(--success)';
+                    feedbackDiv.textContent = 'Correct!';
+                    feedbackDiv.className = 'feedback correct';
+                } else {
+                    input.style.borderColor = 'var(--error)';
+                    feedbackDiv.textContent = `Incorrect. Correct answer: ${input.getAttribute('data-answer')}`;
+                    feedbackDiv.className = 'feedback incorrect';
+                }
+            });
+
+            // Score Board ကို ပြသခြင်း
+            const scoreBoard = document.getElementById('score-board');
+            document.getElementById('score').textContent = score;
+            document.getElementById('total').textContent = total;
+            scoreBoard.style.display = 'block';
+            
+            // Score Board ထဲမှာ ကလေးနာမည် ထည့်ခြင်း
+            scoreBoard.innerHTML = `<strong>${studentName}</strong>, Your Score: <span>${score}</span> / <span>${total}</span>`;
+
+            // အပေါ်ကို ပြန်တင်ခြင်း
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            alert(`Exam Submitted!\nStudent: ${studentName}\nScore: ${score} / ${total}`);
+        }
+    </script>
+</body>
+</html>
